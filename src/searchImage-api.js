@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://api.unsplash.com/photos";
+axios.defaults.baseURL = "https://api.unsplash.com/search/photos";
 const CLIENT_ID = "XRODloqZQ-HPQVrkBUfF14HSH9jTbvdTfTFnnugyfyg";
 
 const fetchPhotos = async (userQuery, currentPage) => {
@@ -9,7 +9,7 @@ const fetchPhotos = async (userQuery, currentPage) => {
       client_id: CLIENT_ID,
       query: userQuery,
       page: currentPage,
-      orientation: "landscape",
+      // orientation: "landscape",
       per_page: 10,
     },
   };

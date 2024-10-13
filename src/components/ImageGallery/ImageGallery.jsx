@@ -1,9 +1,11 @@
-import ImageCard from "../ImageCard/ImageCard";
+import ImageCard from "/src/components/ImageCard/ImageCard";
 
-const ImageGallery = ({ data }) => {
+import css from "./ImageGallery.module.css";
+
+const ImageGallery = ({ data, onImageOpen }) => {
   return (
     <div>
-      <ul>
+      <ul className={css.imageList}>
         {data.length === 0 ? (
           <li>
             <div>
@@ -13,7 +15,7 @@ const ImageGallery = ({ data }) => {
         ) : (
           data.map((image) => (
             <li key={image.id}>
-              <ImageCard data={image} />
+              <ImageCard data={image} onOpenModal={onImageOpen} />
             </li>
           ))
         )}
