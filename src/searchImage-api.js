@@ -17,7 +17,7 @@ const fetchPhotos = async (userQuery, currentPage) => {
   try {
     return await axios.get("/", axiosOptions);
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
