@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
-import { MagnifyingGlass } from "react-loader-spinner";
+import Loader from "./components/Loader/Loader";
 
 import fetchPhotos from "/src/searchImage-api";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [docHeight, setDocHeight] = useState(null);
   const [image, setImage] = useState([]);
-  const [page, setPage] = useState([]);
+  const [page, setPage] = useState(1);
   const [userQuery, setUserQuery] = useState("");
   const [modalData, setModalData] = useState("");
 
@@ -24,21 +26,33 @@ function App() {
     }
     (async () => {
       setIsLoading(true);
-      const response = await fetchPhotos(userQuery, 1);
+      const response = await fetchPhotos(userQuery, page);
 
-      if (response.status >= 400) {
+      if (response.status >= 400 || response.data.results.length === 0) {
         setIsError(true);
         setIsLoading(false);
         return;
       }
+
       setIsLoading(false);
       setIsError(false);
 
-      setImage(response.data.results);
+      setImage((prevImages) => {
+        return [...prevImages, ...response.data.results];
+      });
+
       console.log(response.data);
-      console.log(userQuery);
     })();
   }, [userQuery, page]);
+
+  useEffect(() => {
+    if (isLoading === false && page > 1) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [image]);
 
   const onHandleSubmit = (query) => {
     setUserQuery(query);
@@ -50,34 +64,30 @@ function App() {
   };
   console.log(modalIsOpen);
   console.log(modalData);
-  ///modal data here only alt-desc...see the url!
 
   const onCloseModal = () => {
     setModalIsOpen(false);
     setModalData(null);
   };
 
+  const onLoadMoreHandle = () => {
+    setIsLoading(true);
+    setPage(page + 1);
+    setIsLoading(false);
+  };
+
   return (
     <>
       <SearchBar onHandleSubmit={onHandleSubmit} />
-
       <ImageGallery data={image} onImageOpen={onOpenModal} />
       {modalIsOpen && (
         <ImageModal data={modalData} onImageClose={onCloseModal} />
       )}
-      {isLoading && (
-        <MagnifyingGlass
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="magnifying-glass-loading"
-          wrapperStyle={{}}
-          wrapperClass="magnifying-glass-wrapper"
-          glassColor="#c0efff"
-          color="#e15b64"
-        />
-      )}
+      {isLoading && <Loader />}
       {isError && <ErrorMessage />}
+
+      {page > 1 && <ImageGallery data={image} onImageOpen={onOpenModal} />}
+      {image.length !== 0 && <LoadMoreBtn onLoadMore={onLoadMoreHandle} />}
     </>
   );
 }
