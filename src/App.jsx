@@ -92,7 +92,7 @@ function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
-      {image.length !== 0 && page !== totalPage && (
+      {image.length !== 0 && page < totalPage && (
         <LoadMoreBtn onLoadMore={onLoadMoreHandle} />
       )}
     </>
