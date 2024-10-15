@@ -5,7 +5,6 @@ const ImageModal = ({ alt_description, full }, onImageClose) => {
   const onModalCloseHandle = () => {
     onImageClose();
   };
-  // console.log(full);
 
   return (
     <div>

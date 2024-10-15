@@ -14,7 +14,7 @@ const ImageCard = ({
   onOpenModal,
 }) => {
   const onClickOpenModal = () => {
-    onOpenModal(alt_description, full);
+    onOpenModal({alt_description, full});
   };
 
   return (

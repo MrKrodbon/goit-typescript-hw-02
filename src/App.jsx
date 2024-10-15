@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     if (!userQuery) {
-      console.log(userQuery);
+      return;
     }
     (async () => {
       setIsLoading(true);
@@ -53,8 +53,6 @@ function App() {
       setImage((prevImages) => {
         return [...prevImages, ...response.data.results];
       });
-
-      console.log(response.data);
     })();
   }, [userQuery, page]);
 
@@ -86,8 +84,6 @@ function App() {
     setPage(page + 1);
     setIsLoading(false);
   };
-
-  console.log(`modal data: ${modalData}`);
 
   return (
     <>
