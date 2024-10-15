@@ -6,15 +6,28 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
 
+import Modal from "react-modal";
 import fetchPhotos from "/src/searchImage-api";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+Modal.setAppElement(document.getElementById("root"));
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [docHeight, setDocHeight] = useState(null);
   const [image, setImage] = useState([]);
   const [page, setPage] = useState(1);
   const [userQuery, setUserQuery] = useState("");
@@ -59,11 +72,9 @@ function App() {
   };
 
   const onOpenModal = (data) => {
-    setModalData(data);
     setModalIsOpen(true);
+    setModalData(data);
   };
-  console.log(modalIsOpen);
-  console.log(modalData);
 
   const onCloseModal = () => {
     setModalIsOpen(false);
@@ -76,17 +87,25 @@ function App() {
     setIsLoading(false);
   };
 
+  console.log(`modal data: ${modalData}`);
+
   return (
     <>
       <SearchBar onHandleSubmit={onHandleSubmit} />
       <ImageGallery data={image} onImageOpen={onOpenModal} />
-      {modalIsOpen && (
+      <Modal
+        style={customStyles}
+        isOpen={modalIsOpen}
+        onAfterOpen={onOpenModal}
+        onRequestClose={onCloseModal}
+        contentLabel="Example Modal"
+      >
         <ImageModal data={modalData} onImageClose={onCloseModal} />
-      )}
+      </Modal>
+
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
-      {page > 1 && <ImageGallery data={image} onImageOpen={onOpenModal} />}
       {image.length !== 0 && <LoadMoreBtn onLoadMore={onLoadMoreHandle} />}
     </>
   );

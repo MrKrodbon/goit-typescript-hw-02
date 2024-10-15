@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@
   border-radius: 20px;
   transform: translateY(-50px);
   transition: opacity 0.3s, transform 0.3s;
-}
+} */
 
 .modalCloseBtn {
   position: absolute;
