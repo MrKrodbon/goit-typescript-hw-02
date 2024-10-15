@@ -9,7 +9,10 @@ const SearchBar = ({ onHandleSubmit }) => {
     event.preventDefault();
     const form = event.target;
     const userInput = form.elements.text.value.trim("");
-    if (userInput === "") notify();
+    if (userInput === "") {
+      notify();
+      return;
+    }
     onHandleSubmit(form.elements.text.value);
 
     form.reset();
