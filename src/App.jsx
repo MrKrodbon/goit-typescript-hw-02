@@ -6,23 +6,9 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
 
-import Modal from "react-modal";
 import fetchPhotos from "/src/searchImage-api";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
-Modal.setAppElement(document.getElementById("root"));
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -31,12 +17,13 @@ function App() {
   const [image, setImage] = useState([]);
   const [page, setPage] = useState(1);
   const [userQuery, setUserQuery] = useState("");
-  const [modalData, setModalData] = useState("");
+  const [modalData, setModalData] = useState([]);
 
   useEffect(() => {
     if (!userQuery) {
       return;
     }
+
     (async () => {
       setIsLoading(true);
       const response = await fetchPhotos(userQuery, page);
@@ -66,6 +53,8 @@ function App() {
   }, [image]);
 
   const onHandleSubmit = (query) => {
+    setImage([]);
+    setPage(1);
     setUserQuery(query);
   };
 
@@ -89,15 +78,13 @@ function App() {
     <>
       <SearchBar onHandleSubmit={onHandleSubmit} />
       <ImageGallery data={image} onImageOpen={onOpenModal} />
-      <Modal
-        style={customStyles}
-        isOpen={modalIsOpen}
-        onAfterOpen={onOpenModal}
-        onRequestClose={onCloseModal}
-        contentLabel="Example Modal"
-      >
-        <ImageModal data={modalData} onImageClose={onCloseModal} />
-      </Modal>
+      {modalData && (
+        <ImageModal
+          modalData={modalData}
+          onImageClose={onCloseModal}
+          isOpen={modalIsOpen}
+        />
+      )}
 
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}

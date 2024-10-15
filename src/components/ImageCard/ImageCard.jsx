@@ -14,7 +14,7 @@ const ImageCard = ({
   onOpenModal,
 }) => {
   const onClickOpenModal = () => {
-    onOpenModal({alt_description, full});
+    onOpenModal({ alt_description, full });
   };
 
   return (
@@ -27,7 +27,7 @@ const ImageCard = ({
         className={css.image}
       />
       <ul className={css.contentList}>
-        <li className={css.contentListItem}>
+        <li className={css.contentListItem} key={name}>
           <a>
             <img
               src={large}
