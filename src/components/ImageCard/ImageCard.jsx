@@ -5,7 +5,7 @@ const ImageCard = ({
   data: {
     likes,
     alt_description,
-    urls: { full, regular },
+    urls: { regular },
     user: {
       name,
       profile_image: { large },
@@ -14,7 +14,7 @@ const ImageCard = ({
   onOpenModal,
 }) => {
   const onClickOpenModal = () => {
-    onOpenModal({ alt_description, full });
+    onOpenModal({ alt_description, regular });
   };
 
   return (

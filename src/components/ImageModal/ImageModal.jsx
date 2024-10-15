@@ -10,14 +10,15 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "none",
+    padding: "0",
+    borderStyle: "none",
   },
 };
 
 const ImageModal = ({
-  modalData: { full, alt_description },
+  modalData: { regular, alt_description },
   onImageClose,
   isOpen,
 }) => {
@@ -30,14 +31,12 @@ const ImageModal = ({
       style={customStyles}
       isOpen={isOpen}
       onRequestClose={onImageClose}
-      contentLabel="Example Modal"
+      contentLabel="Image modal"
     >
-      <div className={css.modalWrapper}>
-        <img src={full} alt={alt_description} className={css.img} />
-        <button className={css.modalCloseBtn} onClick={onModalCloseHandle}>
-          <IoMdClose color="white" />
-        </button>
-      </div>
+      <img src={regular} alt={alt_description} className={css.img} />
+      <button className={css.modalCloseBtn} onClick={onModalCloseHandle}>
+        <IoMdClose color="white" />
+      </button>
     </Modal>
   );
 };
