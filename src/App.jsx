@@ -42,6 +42,7 @@ function App() {
       });
     })();
   }, [userQuery, page]);
+  console.log(image);
 
   useEffect(() => {
     if (isLoading === false && page > 1) {

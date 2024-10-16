@@ -17,7 +17,7 @@ const customStyles = {
 };
 
 const ImageModal = ({
-  modalData: { full, alt_description },
+  modalData: { full, alt_description, name, location, portfolio_url },
   onImageClose,
   isOpen,
 }) => {
@@ -34,6 +34,9 @@ const ImageModal = ({
     >
       <div className={css.modalWrapper}>
         <img src={full} alt={alt_description} className={css.img} />
+        <a href={portfolio_url}>Contact with author</a>
+        <p>{name}</p>
+        <p>{location}</p>
         <button className={css.modalCloseBtn} onClick={onModalCloseHandle}>
           <IoMdClose color="white" />
         </button>

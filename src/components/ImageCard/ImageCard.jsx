@@ -18,13 +18,14 @@ const ImageCard = ({
   };
 
   return (
-    <div className={css.imageCard} onClick={onClickOpenModal}>
+    <div className={css.imageCard}>
       <img
         src={regular}
         alt={alt_description}
         height={100}
         width={200}
         className={css.image}
+        onClick={onClickOpenModal}
       />
       <ul className={css.contentList}>
         <li className={css.contentListItem} key={name}>
