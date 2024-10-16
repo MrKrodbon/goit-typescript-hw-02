@@ -10,14 +10,19 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "none",
+    padding: "0",
+    borderStyle: "none",
   },
 };
 
 const ImageModal = ({
+<<<<<<< HEAD
   modalData: { full, alt_description, name, location, portfolio_url },
+=======
+  modalData: { regular, alt_description },
+>>>>>>> 20979607879f36dac30afaed4eccec1944a9ca12
   onImageClose,
   isOpen,
 }) => {
@@ -30,8 +35,9 @@ const ImageModal = ({
       style={customStyles}
       isOpen={isOpen}
       onRequestClose={onImageClose}
-      contentLabel="Example Modal"
+      contentLabel="Image modal"
     >
+<<<<<<< HEAD
       <div className={css.modalWrapper}>
         <img src={full} alt={alt_description} className={css.img} />
         <a href={portfolio_url}>Contact with author</a>
@@ -41,6 +47,12 @@ const ImageModal = ({
           <IoMdClose color="white" />
         </button>
       </div>
+=======
+      <img src={regular} alt={alt_description} className={css.img} />
+      <button className={css.modalCloseBtn} onClick={onModalCloseHandle}>
+        <IoMdClose color="white" />
+      </button>
+>>>>>>> 20979607879f36dac30afaed4eccec1944a9ca12
     </Modal>
   );
 };

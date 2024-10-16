@@ -1,10 +1,21 @@
 import css from "./SearchBar.module.css";
 
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast("The input field is empty ");
+
 const SearchBar = ({ onHandleSubmit }) => {
   const onFormSubmit = async (event) => {
     event.preventDefault();
-    const form = event.target.elements;
-    onHandleSubmit(form.text.value);
+    const form = event.target;
+    const userInput = form.elements.text.value.trim("");
+    if (userInput === "") {
+      notify();
+      return;
+    }
+    onHandleSubmit(form.elements.text.value);
+
+    form.reset();
   };
 
   return (
@@ -22,6 +33,18 @@ const SearchBar = ({ onHandleSubmit }) => {
           <button type="submit" className={css.submitBtn}>
             Search
           </button>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            gutter={8}
+            toastOptions={{
+              duration: 1000,
+              style: {
+                background: "#363636",
+                color: "#fff",
+              },
+            }}
+          />
         </form>
       </header>
     </>

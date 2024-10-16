@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -18,6 +18,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [userQuery, setUserQuery] = useState("");
   const [modalData, setModalData] = useState([]);
+  const [totalPage, setTotalPage] = useState(null);
 
   useEffect(() => {
     if (!userQuery) {
@@ -33,6 +34,7 @@ function App() {
         setIsLoading(false);
         return;
       }
+      setTotalPage(response.data.total_pages);
 
       setIsLoading(false);
       setIsError(false);
@@ -55,6 +57,7 @@ function App() {
 
   const onHandleSubmit = (query) => {
     setImage([]);
+
     setPage(1);
     setUserQuery(query);
   };
@@ -90,7 +93,9 @@ function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
-      {image.length !== 0 && <LoadMoreBtn onLoadMore={onLoadMoreHandle} />}
+      {image.length !== 0 && page < totalPage && (
+        <LoadMoreBtn onLoadMore={onLoadMoreHandle} />
+      )}
     </>
   );
 }
