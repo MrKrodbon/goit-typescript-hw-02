@@ -7,13 +7,15 @@ export type ResponseFetchPhoto = {
   };
 };
 
+export type Urls = {
+  regular: string;
+};
+
 export type Image = {
   id: number;
   likes: number;
   alt_description: string;
-  urls: {
-    regular: string;
-  };
+  urls: Urls;
 
   user: {
     name: string;
@@ -21,4 +23,9 @@ export type Image = {
       large: string;
     };
   };
+};
+
+export type Modal = {
+  regular: string;
+  alt_description: string;
 };

@@ -7,11 +7,11 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
 
-import fetchPhotos from "./searchImage-api.ts";
+import fetchPhotos from "./api/searchImage-api.ts";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
-import { Image, ResponseFetchPhoto } from "./App.ts";
+import { Image, Modal, ResponseFetchPhoto } from "./App.ts";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ function App() {
   const [image, setImage] = useState<Image[]>([]);
   const [page, setPage] = useState<number>(1);
   const [userQuery, setUserQuery] = useState<string>("");
-  const [modalData, setModalData] = useState<Image | null>(null);
+  const [modalData, setModalData] = useState<Modal | null>(null);
   const [totalPage, setTotalPage] = useState<number | null>(null);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function App() {
     setUserQuery(query);
   };
 
-  const onOpenModal = (data: Image) => {
+  const onOpenModal = (data: Modal) => {
     setModalIsOpen(true);
     setModalData(data);
   };
@@ -80,6 +80,7 @@ function App() {
     setPage(page + 1);
     setIsLoading(false);
   };
+  console.log("modal" + modalData);
 
   return (
     <>
