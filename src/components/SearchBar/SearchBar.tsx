@@ -1,19 +1,22 @@
+import React from "react";
 import css from "./SearchBar.module.css";
 
 import toast, { Toaster } from "react-hot-toast";
+import { SearchBarProps } from "./SearchBar.types";
 
 const notify = () => toast("The input field is empty ");
 
-const SearchBar = ({ onHandleSubmit }) => {
-  const onFormSubmit = async (event) => {
+const SearchBar = ({ onHandleSubmit }: SearchBarProps) => {
+  const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.target;
-    const userInput = form.elements.text.value.trim("");
-    if (userInput === "") {
+    const form = event.currentTarget;
+    const userInput = form.elements.namedItem("text") as HTMLInputElement;
+    const trimmedValue = userInput.value.trim();
+    if (trimmedValue === "") {
       notify();
       return;
     }
-    onHandleSubmit(form.elements.text.value);
+    onHandleSubmit(trimmedValue);
 
     form.reset();
   };

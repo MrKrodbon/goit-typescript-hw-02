@@ -1,6 +1,8 @@
+import React from "react";
 import css from "./LoadMoreBtn.module.css";
+import { onLoadMoreProps } from "./LoadMore.types";
 
-const LoadMoreBtn = ({ onLoadMore }) => {
+const LoadMoreBtn = ({ onLoadMore }: onLoadMoreProps) => {
   const onLoadMoreHandle = () => {
     onLoadMore();
   };

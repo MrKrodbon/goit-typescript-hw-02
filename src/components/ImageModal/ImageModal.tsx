@@ -1,6 +1,8 @@
+import React from "react";
 import css from "./ImageModal.module.css";
 import { IoMdClose } from "react-icons/io";
 import Modal from "react-modal";
+import { ImageModalProps } from "./ImageModal.types";
 
 Modal.setAppElement("#root");
 
@@ -21,7 +23,7 @@ const ImageModal = ({
   modalData: { regular, alt_description },
   onImageClose,
   isOpen,
-}) => {
+}: ImageModalProps) => {
   const onModalCloseHandle = () => {
     onImageClose();
   };

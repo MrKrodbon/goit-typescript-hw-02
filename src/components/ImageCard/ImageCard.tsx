@@ -1,3 +1,4 @@
+import React from "react";
 import css from "./ImageCard.module.css";
 import { FaHeart } from "react-icons/fa6";
 

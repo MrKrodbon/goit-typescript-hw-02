@@ -3,7 +3,10 @@ import axios from "axios";
 axios.defaults.baseURL = "https://api.unsplash.com/search/photos";
 const CLIENT_ID = "XRODloqZQ-HPQVrkBUfF14HSH9jTbvdTfTFnnugyfyg";
 
-const fetchPhotos = async (userQuery, currentPage) => {
+const fetchPhotos = async <T>(
+  userQuery: string,
+  currentPage: number
+): Promise<T> => {
   const axiosOptions = {
     params: {
       client_id: CLIENT_ID,
@@ -15,9 +18,10 @@ const fetchPhotos = async (userQuery, currentPage) => {
   };
 
   try {
-    return await axios.get("/", axiosOptions);
+    const response: T = await axios.get("/", axiosOptions);
+    return response;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -6,19 +7,21 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
 
-import fetchPhotos from "/src/searchImage-api";
+import fetchPhotos from "./searchImage-api.ts";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
+import { Image, ResponseFetchPhoto } from "./App.ts";
+
 function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [image, setImage] = useState([]);
-  const [page, setPage] = useState(1);
-  const [userQuery, setUserQuery] = useState("");
-  const [modalData, setModalData] = useState([]);
-  const [totalPage, setTotalPage] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [image, setImage] = useState<Image[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [userQuery, setUserQuery] = useState<string>("");
+  const [modalData, setModalData] = useState<Image | null>(null);
+  const [totalPage, setTotalPage] = useState<number | null>(null);
 
   useEffect(() => {
     if (!userQuery) {
@@ -27,7 +30,7 @@ function App() {
 
     (async () => {
       setIsLoading(true);
-      const response = await fetchPhotos(userQuery, page);
+      const response: ResponseFetchPhoto = await fetchPhotos(userQuery, page);
 
       if (response.status >= 400 || response.data.results.length === 0) {
         setIsError(true);
@@ -55,14 +58,14 @@ function App() {
     }
   }, [image]);
 
-  const onHandleSubmit = (query) => {
+  const onHandleSubmit = (query: string) => {
     setImage([]);
 
     setPage(1);
     setUserQuery(query);
   };
 
-  const onOpenModal = (data) => {
+  const onOpenModal = (data: Image) => {
     setModalIsOpen(true);
     setModalData(data);
   };
@@ -93,9 +96,7 @@ function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
-      {image.length !== 0 && page < totalPage && (
-        <LoadMoreBtn onLoadMore={onLoadMoreHandle} />
-      )}
+      {image.length !== 0 && <LoadMoreBtn onLoadMore={onLoadMoreHandle} />}
     </>
   );
 }

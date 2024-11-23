@@ -1,8 +1,9 @@
-import ImageCard from "/src/components/ImageCard/ImageCard";
-
+import React from "react";
+import ImageCard from "../ImageCard/ImageCard";
+import { ImageGalleryProps } from "./ImageGallery.types";
 import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ data, onImageOpen }) => {
+const ImageGallery = ({ data, onImageOpen }: ImageGalleryProps) => {
   return (
     <div>
       <ul className={css.imageList}>
