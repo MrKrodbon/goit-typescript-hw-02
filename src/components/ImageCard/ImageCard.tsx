@@ -1,4 +1,3 @@
-import React from "react";
 import css from "./ImageCard.module.css";
 import { FaHeart } from "react-icons/fa6";
 import { ImageCardProps } from "./ImageCard.types";
@@ -16,7 +15,7 @@ const ImageCard = ({
   onOpenModal,
 }: ImageCardProps) => {
   const onClickOpenModal = () => {
-    onOpenModal(alt_description, regular);
+    onOpenModal({ alt_description, regular });
   };
 
   return (

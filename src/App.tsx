@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import React from "react";
+
 import "./App.css";
 
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
-
-import fetchPhotos from "./api/searchImage-api.ts";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import LoadMoreBtn from "./components/Loader/LoadMoreBtn/LoadMoreBtn";
 
-import { Image, Modal, ResponseFetchPhoto } from "./App.ts";
+import fetchPhotos from "./api/searchImage-api";
+import { Image, Modal, ResponseFetchPhoto } from "./types";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -85,7 +84,7 @@ function App() {
   return (
     <>
       <SearchBar onHandleSubmit={onHandleSubmit} />
-      <ImageGallery data={image} onImageOpen={onOpenModal} />
+      <ImageGallery data={image} onOpenModal={onOpenModal} />
       {modalData && (
         <ImageModal
           modalData={modalData}

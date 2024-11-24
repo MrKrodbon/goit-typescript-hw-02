@@ -1,6 +1,6 @@
-import { Image, Modal } from "../../App";
+import { Image, Modal } from "../../types";
 
 export type ImageGalleryProps = {
   data: Image[];
-  onImageOpen: (data: Modal) => void;
+  onOpenModal: (data: Modal) => void;
 };

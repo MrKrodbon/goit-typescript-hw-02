@@ -21,3 +21,10 @@
   border-radius: 8px;
   object-fit: contain;
 }
+
+.altDescription {
+  display: flex;
+  justify-content: space-around;
+  color: black;
+  font-size: 30px;
+}

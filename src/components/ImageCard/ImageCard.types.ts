@@ -1,3 +1,5 @@
+import { Modal } from "../../types";
+
 export type ImageCardProps = {
   data: {
     likes: number;
@@ -8,5 +10,5 @@ export type ImageCardProps = {
       profile_image: { large: string };
     };
   };
-  onOpenModal: (alt_description: string, regular: string) => void;
+  onOpenModal: (data: Modal) => void;
 };

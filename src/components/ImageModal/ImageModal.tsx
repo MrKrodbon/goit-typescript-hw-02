@@ -36,6 +36,7 @@ const ImageModal = ({
       contentLabel="Image modal"
     >
       <img src={regular} alt={alt_description} className={css.img} />
+      <p className={css.altDescription}>{alt_description}</p>
       <button className={css.modalCloseBtn} onClick={onModalCloseHandle}>
         <IoMdClose color="white" />
       </button>

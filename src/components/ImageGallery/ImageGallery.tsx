@@ -3,7 +3,7 @@ import ImageCard from "../ImageCard/ImageCard";
 import { ImageGalleryProps } from "./ImageGallery.types";
 import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ data, onImageOpen }: ImageGalleryProps) => {
+const ImageGallery = ({ data, onOpenModal }: ImageGalleryProps) => {
   return (
     <div>
       <ul className={css.imageList}>
@@ -16,7 +16,7 @@ const ImageGallery = ({ data, onImageOpen }: ImageGalleryProps) => {
         ) : (
           data.map((image) => (
             <li key={image.id}>
-              <ImageCard data={image} onOpenModal={onImageOpen} />
+              <ImageCard data={image} onOpenModal={onOpenModal} />
             </li>
           ))
         )}
